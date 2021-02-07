@@ -11,20 +11,22 @@ process TRIMMOMATIC {
     publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
     container 'quay.io/biocontainers/trimmomatic:0.35--6'
     cpus 4
-    memory "8 GB"
+    memory "7 GB"
 
     input:
     tuple val(genomeName), path(genomeReads)
 
     output:
-    tuple val(genomeName), path("*_{R1,R2}.p.fastq.gz")
+    tuple val(genomeFileName), path("*_{R1,R2}.p.fastq.gz")
 
     script:
 
-    fq_1_paired = genomeName + '_R1.p.fastq.gz'
-    fq_1_unpaired = genomeName + '_R1.s.fastq.gz'
-    fq_2_paired = genomeName + '_R2.p.fastq.gz'
-    fq_2_unpaired = genomeName + '_R2.s.fastq.gz'
+    genomeFileName = genomeName.toString().split("\\_")[0]
+
+    fq_1_paired = genomeFileName + '_R1.p.fastq.gz'
+    fq_1_unpaired = genomeFileName + '_R1.s.fastq.gz'
+    fq_2_paired = genomeFileName + '_R2.p.fastq.gz'
+    fq_2_unpaired = genomeFileName + '_R2.s.fastq.gz'
 
     """
     trimmomatic \
@@ -41,12 +43,3 @@ process TRIMMOMATIC {
     """
 }
 
-workflow test {
-
-
-input_ch = Channel.fromFilePairs("$launchDir/test_data/*_{1,2}.fastq.gz")
-
-
-TRIMMOMATIC(input_ch)
-
-}

@@ -11,19 +11,50 @@ include { MULTIQC as MULTIQC_TRIMMED } from "./modules/multiqc/multiqc.nf"
 include { SNIPPY } from "./modules/snippy/snippy.nf"
 
 
+workflow BASE {
+
+    sra_ch = Channel.fromFilePairs(params.reads)
+
+    TRIMMOMATIC(sra_ch)
+    SPADES(TRIMMOMATIC.out)
+    PROKKA(SPADES.out)
+}
+
+
+
+
+workflow QUALITY_CHECK {
+
+    sra_ch = Channel.fromFilePairs(params.reads)
+
+    FASTQC_UNTRIMMED(sra_ch)
+    MULTIQC_UNTRIMMED(FASTQC_UNTRIMMED.out)
+
+    TRIMMOMATIC(sra_ch)
+    FASTQC_TRIMMED(TRIMMOMATIC.out)
+    MULTIQC_TRIMMED(FASTQC_TRIMMED.out)
+}
+
+
+workflow WF_SNIPPY {
+
+    sra_ch = Channel.fromFilePairs(params.reads)
+
+    SNIPPY()
+}
+
+
+
 workflow {
 
     sra_ch = Channel.fromFilePairs(params.reads)
 
 //    FASTQC_UNTRIMMED(sra_ch)
 //    MULTIQC_UNTRIMMED(FASTQC_UNTRIMMED.out)
-
-    TRIMMOMATIC(sra_ch)
+//    TRIMMOMATIC(sra_ch)
 //    FASTQC_TRIMMED(TRIMMOMATIC.out)
 //    MULTIQC_TRIMMED(FASTQC_TRIMMED.out)
-    SPADES(TRIMMOMATIC.out)
-    PROKKA(SPADES.out)
+//    SPADES(TRIMMOMATIC.out)
+//    PROKKA(SPADES.out)
 //    SNIPPY()
 }
-
-

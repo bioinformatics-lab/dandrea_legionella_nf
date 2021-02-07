@@ -7,7 +7,8 @@ params.shouldPublish = true
 process SNIPPY {
     tag "${genomeName}"
     publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
-    container 'quay.io/biocontainers/snippy:1.14.6--pl526_0'
+    container 'quay.io/biocontainers/snippy:4.6.0--0'
+
     cpus 8
     memory "15 GB"
 
@@ -18,9 +19,12 @@ process SNIPPY {
     path("${genomeName}")
 
     script:
+    ram = task.memory.splilt("\\ ")[0]
 
     """
-    snippy --outdir ${genomeName} --prefix $genomeName ${bestContig} --cpus ${task.cpus}
+
+    snippy --cpus ${task.cpus} --ram ${task.memory} --outdir $genomeName --ref $refGbk --R1 ${genomeReads[0]} --R2 ${genomeReads[1]}
+
     """
 
 }

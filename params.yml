@@ -1,4 +1,3 @@
-outdir: FIXME
-
-gatk38_jar: FIXME
+outdir: "gs://nextflow-gcp-bucket/legionella_dandrea/results"
+reads: "gs://nextflow-gcp-bucket/legionella_dandrea/data/raw/*_{R1,R2}_*.fastq.gz"
 

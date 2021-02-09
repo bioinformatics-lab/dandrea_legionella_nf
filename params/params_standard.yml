@@ -1,4 +1,4 @@
 outdir: "./results"
 reads: "./data/raw/*_{R1,R2}_*.fastq.gz"
-gbkFile: "./data/reference/NZ_CP013742.1.gb"
+gbkFile: "./data/reference/NZ_CP013742.1_full.gb"
 

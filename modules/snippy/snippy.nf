@@ -9,11 +9,9 @@ process SNIPPY {
     publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
     container 'quay.io/biocontainers/snippy:4.6.0--0'
 
-    cpus 8
-    memory "15 GB"
-
     input:
-    tuple val(genomeName),  path(bestContig)
+    tuple val(genomeName),  path(genomeReads)
+    path(refGbk)
 
     output:
     path("${genomeName}")
@@ -23,7 +21,7 @@ process SNIPPY {
 
     """
 
-    snippy --cpus ${task.cpus} --ram ${task.memory} --outdir $genomeName --ref $refGbk --R1 ${genomeReads[0]} --R2 ${genomeReads[1]}
+    snippy --cpus ${task.cpus} --ram ${ram} --outdir $genomeName --ref $refGbk --R1 ${genomeReads[0]} --R2 ${genomeReads[1]}
 
     """
 

@@ -1,0 +1,3 @@
+outdir: "./results"
+reads: "./data/raw/*_{R1,R2}_*.fastq.gz"
+

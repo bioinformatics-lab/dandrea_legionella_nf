@@ -1,3 +1,5 @@
+import java.nio.file.Paths
+
 nextflow.enable.dsl = 2
 
 include { TRIMMOMATIC } from "./modules/trimmomatic/trimmomatic.nf"
@@ -37,7 +39,7 @@ workflow QUALITY_CHECK {
 
 workflow WF_SNIPPY {
     sra_ch = Channel.fromFilePairs(params.reads)
-    refGbk_ch = Channel.fromPath(params.gbkFile)
+    refGbk_ch = Channel.fromPath(Paths.get(params.gbkFile))
 
     TRIMMOMATIC(sra_ch)
     SNIPPY(TRIMMOMATIC.out, refGbk_ch )

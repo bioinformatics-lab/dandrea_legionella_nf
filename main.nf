@@ -10,6 +10,7 @@ include { FASTQC as FASTQC_TRIMMED } from "./modules/fastqc/fastqc.nf" addParams
 include { MULTIQC as MULTIQC_UNTRIMMED } from "./modules/multiqc/multiqc.nf"
 include { MULTIQC as MULTIQC_TRIMMED } from "./modules/multiqc/multiqc.nf"
 include { SNIPPY } from "./modules/snippy/snippy.nf"
+include { QUAST } from "./modules/quast/quast.nf"
 
 
 workflow BASE {
@@ -46,6 +47,15 @@ workflow WF_SNIPPY {
 }
 
 
+workflow QUAST {
+    contigs_ch = Channel.fromFilePairs("$launchDir/results/spades/*fasta").collect()
+
+    QUAST(contigs_ch)
+}
+
+
+
+
 
 workflow {
 
@@ -59,4 +69,5 @@ workflow {
 //    SPADES(TRIMMOMATIC.out)
 //    PROKKA(SPADES.out)
 //    SNIPPY()
+//    QUAST()
 }

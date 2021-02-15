@@ -47,8 +47,9 @@ workflow WF_SNIPPY {
 }
 
 
-workflow QUAST {
-    contigs_ch = Channel.fromFilePairs("$launchDir/results/spades/*fasta").collect()
+workflow QUAST_WF {
+    contigs_ch = Channel.fromPath("$launchDir/results/spades/*fasta").collect()
+
 
     QUAST(contigs_ch)
 }

@@ -60,6 +60,8 @@ workflow UNICYCLER_WF {
     sra_ch = Channel.fromFilePairs(params.reads)
     TRIMMOMATIC(sra_ch)
     UNICYCLER(TRIMMOMATIC.out)
+    // TODO
+//    QUAST_UNICYCLER(UNICYCLER.out)
 }
 
 

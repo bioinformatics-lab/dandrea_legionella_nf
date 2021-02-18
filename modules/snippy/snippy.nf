@@ -18,7 +18,7 @@ process SNIPPY {
 
     script:
 //    ram = "${task.memory}".splilt(" ")[0]
-    ram = "28"
+    ram = "15"
 
     """
 

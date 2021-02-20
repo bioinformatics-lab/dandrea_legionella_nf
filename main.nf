@@ -10,7 +10,8 @@ include { FASTQC as FASTQC_TRIMMED } from "./modules/fastqc/fastqc.nf" addParams
 include { MULTIQC as MULTIQC_UNTRIMMED } from "./modules/multiqc/multiqc.nf"
 include { MULTIQC as MULTIQC_TRIMMED } from "./modules/multiqc/multiqc.nf"
 include { SNIPPY } from "./modules/snippy/snippy.nf"
-include { QUAST } from "./modules/quast/quast.nf"
+include { QUAST as QUAST_SPADES } from "./modules/quast/quast.nf" addParams(resultsDir: "${params.outdir}/quast_spades")
+include { QUAST as QUAST_UNICYCLER } from "./modules/quast/quast.nf"  addParams(resultsDir: "${params.outdir}/quast_unicycler")
 include { UNICYCLER } from "./modules/unicycler/unicycler.nf"
 
 
@@ -63,12 +64,14 @@ workflow SNIPPY_ANISA_WF {
 
 
 
-workflow QUAST_WF {
-    contigs_ch = Channel.fromPath("$launchDir/results/spades/*fasta").collect()
-
-
-    QUAST(contigs_ch)
+workflow SPADES_WF {
+    sra_ch = Channel.fromFilePairs(params.reads)
+    TRIMMOMATIC(sra_ch)
+    SPADES(TRIMMOMATIC.out)
+    QUAST_SPADES(SPADES.out)
 }
+
+
 
 
 workflow UNICYCLER_WF {

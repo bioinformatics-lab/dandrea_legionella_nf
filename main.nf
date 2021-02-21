@@ -75,11 +75,11 @@ workflow SPADES_WF {
 
 
 workflow UNICYCLER_WF {
-    sra_ch = Channel.fromFilePairs(params.reads)
-    TRIMMOMATIC(sra_ch)
-    UNICYCLER(TRIMMOMATIC.out)
-    // TODO
-//    QUAST_UNICYCLER(UNICYCLER.out)
+
+    trimmedReads_ch = Channel.fromFilePairs("$baseDir/results/trimmomatic/*_{R1,R2}.p.fastq.gz")
+
+    UNICYCLER(trimmedReads_ch)
+    QUAST_UNICYCLER(UNICYCLER.out)
 }
 
 

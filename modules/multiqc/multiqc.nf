@@ -28,7 +28,7 @@ process MULTIQC {
     stub:
 
     """
-    echo multiqc ${params.fastqcResultsDir}
+    echo "multiqc ${params.fastqcResultsDir}"
     mkdir multiqc_data
 
     touch multiqc_data/multiqc_report.html

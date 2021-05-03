@@ -30,7 +30,7 @@ process SNIPPY {
     ram = "${task.memory}".split(" ")[0]
 
     """
-    echo snippy --cpus ${task.cpus} --ram ${ram} --outdir $genomeName --ref $refGbk --R1 ${genomeReads[0]} --R2 ${genomeReads[1]}
+    echo "snippy --cpus ${task.cpus} --ram ${ram} --outdir $genomeName --ref $refGbk --R1 ${genomeReads[0]} --R2 ${genomeReads[1]}"
 
     mkdir ${genomeName}
     """

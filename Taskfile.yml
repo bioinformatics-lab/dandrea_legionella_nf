@@ -10,3 +10,4 @@ tasks:
   with_stubs:
     cmds:
       - NXF_VER=21.04.0 nextflow run main.nf -params-file params/stub_params.yml -resume -stub -with-tower
+      

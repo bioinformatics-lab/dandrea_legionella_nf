@@ -14,7 +14,7 @@ process SPADES {
     tuple val(genomeName), path(genomeReads)
 
     output:
-    path("*_contigs.fasta")
+    tuple val(genomeName), path("*_contigs.fasta")
 
 
     script:

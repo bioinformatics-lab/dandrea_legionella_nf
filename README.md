@@ -12,7 +12,7 @@ a pipeline for assemblying with unicycler and anotating with prokka _Legionella 
 
 ![dag file](./resources/dag.png)
 
-This is the complete workflow of this pipeline.
+This is the BASE workflow of this pipeline.
 
 ## Quick start
 
@@ -24,11 +24,14 @@ This is the complete workflow of this pipeline.
 2. Run it!
 
 ```
-	nextflow run https://github.com/bioinformatics-lab/dandrea_leionella_nf.git -params-file params/YOUR_PARAMS_FILE
+	nextflow run https://github.com/bioinformatics-lab/dandrea_leionella_nf.git -params-file params/YOUR_PARAMS_FILE --entry SELECTED_WORKFLOW
 
 ```
 
 $YOUR_PARAMS_FILE = FILE NAME, replace for your params file location, please refere to params_stardard.yml as template.
+
+$SELECTED_WORKFLOW, replace for the selected workflow, refer to /workflows/ to know more about them.
+Avaliable Workflows: `BASE`, `QUALITY_CHECK`, `WF_SNIPPY`, `SNIPPY_ANISA_WF`, `SPADES_WF`, `UNICYCLER_WF` and `QUAST_WF`
 
 
 ## Configuration Profiles.

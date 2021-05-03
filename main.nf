@@ -2,6 +2,7 @@ import java.nio.file.Paths
 
 nextflow.enable.dsl = 2
 
+// Process inclusion
 include { TRIMMOMATIC } from "./modules/trimmomatic/trimmomatic.nf"
 include { SPADES } from "./modules/spades/spades.nf"
 include { PROKKA } from "./modules/prokka/prokka.nf"
@@ -14,88 +15,14 @@ include { QUAST as QUAST_SPADES } from "./modules/quast/quast.nf" addParams(resu
 include { QUAST as QUAST_UNICYCLER } from "./modules/quast/quast.nf"  addParams(resultsDir: "${params.outdir}/quast_filtered_unicycler")
 include { UNICYCLER } from "./modules/unicycler/unicycler.nf"
 
-
-workflow BASE {
-
-    sra_ch = Channel.fromFilePairs(params.reads)
-
-    TRIMMOMATIC(sra_ch)
-    SPADES(TRIMMOMATIC.out)
-    PROKKA(SPADES.out)
-}
-
-
-
-
-workflow QUALITY_CHECK {
-
-    sra_ch = Channel.fromFilePairs(params.reads)
-
-    FASTQC_UNTRIMMED(sra_ch)
-//    MULTIQC_UNTRIMMED(FASTQC_UNTRIMMED.out.collect())
-
-    TRIMMOMATIC(sra_ch)
-    FASTQC_TRIMMED(TRIMMOMATIC.out)
-//    MULTIQC_TRIMMED(FASTQC_TRIMMED.out.collect())
-}
-
-
-workflow WF_SNIPPY {
-    sra_ch = Channel.fromFilePairs(params.reads)
-    refGbk_ch = Channel.fromPath(Paths.get(params.gbkFile))
-
-    TRIMMOMATIC(sra_ch)
-    SNIPPY(TRIMMOMATIC.out, refGbk_ch )
-}
-
-
-
-
-workflow SNIPPY_ANISA_WF {
-
-    include { SNIPPY as SNIPPY_ANISA } from "./modules/snippy/snippy.nf" addParams(resultsDir: "$baseDir/results/snippy_anisa")
-
-    trimmedReads_ch = Channel.fromFilePairs("$baseDir/results/trimmomatic/37063_{R1,R2}.p.fastq.gz")
-
-    refGbk_ch = Channel.fromPath("$baseDir/data/reference/NZ_CP029563.1_Legionella_anisa.gb")
-
-    SNIPPY_ANISA(trimmedReads_ch, refGbk_ch )
-}
-
-
-
-workflow SPADES_WF {
-    sra_ch = Channel.fromFilePairs(params.reads)
-    TRIMMOMATIC(sra_ch)
-    SPADES(TRIMMOMATIC.out)
-    QUAST_SPADES(SPADES.out)
-}
-
-
-
-
-workflow UNICYCLER_WF {
-
-    trimmedReads_ch = Channel.fromFilePairs("$baseDir/results/trimmomatic/*_{R1,R2}.p.fastq.gz")
-
-    UNICYCLER(trimmedReads_ch)
-    QUAST_UNICYCLER(UNICYCLER.out)
-}
-
-
-
-
-workflow QUAST_WF {
-
-    filtered_spades_ch = Channel.fromPath("$baseDir/results/spades/filtered/*fna").collect()
-    QUAST_SPADES(filtered_spades_ch)
-
-    filtered_unicycler_ch = Channel.fromPath("$baseDir/results/unicycler/filtered/*fna").collect()
-    QUAST_UNICYCLER(filtered_unicycler_ch)
-}
-
-
-
+// Workflow inclusion
+include { BASE } from "./workflows/base.nf"
+include { QUALITY_CHECK } from "./workflows/quality_check.nf"
+include { WF_SNIPPY } from "./workflows/wf_snippy.nf"
+include { SNIPPY_ANISA_WF } from "./workflow/snippy_anisa_wf.nf"
+include { SPADES_WF } from "./workflow/spades_wf.nf"
+include { UNICYCLER_WF } from "./workflow/unicycler_wf.nf"
+include { QUAST_WF } from "./workflow/quast_wf.nf"
 
 
 workflow {

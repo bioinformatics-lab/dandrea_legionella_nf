@@ -14,8 +14,7 @@ process SPADES {
     tuple val(genomeName), path(genomeReads)
 
     output:
-    tuple val(genomeName), path("*_contigs.fasta"), emit: PROKKA
-    path("*_contigs.fasta"), emit: QUAST
+    tuple val(genomeName), path("*_contigs.fasta")
 
 
     script:

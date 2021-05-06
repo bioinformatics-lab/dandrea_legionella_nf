@@ -20,7 +20,13 @@ process PROKKA {
     script:
 
     """
-    prokka --outdir ${genomeName} --prefix $genomeName ${bestContig} --cpus ${task.cpus}
+    prokka --outdir ${genomeName} --prefix ${genomeName} ${bestContig} --cpus ${task.cpus}
+    """
+
+    stub:
+    """
+    echo "prokka --outdir ${genomeName} --prefix ${genomeName} ${bestContig} --cpus ${task.cpus}"
+    mkdir ${genomeName}
     """
 
 }

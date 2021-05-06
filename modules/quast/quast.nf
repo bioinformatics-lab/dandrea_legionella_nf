@@ -7,12 +7,13 @@ params.shouldPublish = true
 
 
 process QUAST {
+    tag "${genomeName}"
     publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
     container 'quay.io/biocontainers/quast:5.0.2--py37pl526hb5aa323_2'
 
 
     input:
-    path(scaffoldFiles)
+    tuple val(genomeName),path(scaffoldFiles)
 
     output:
     path("quast_results")
@@ -27,7 +28,7 @@ process QUAST {
     stub:
     """
     echo "quast ${scaffoldFiles}"
-
+    mkdir quast_results
     mkdir basic_stats/
     mkdir icarus_viewers/
     

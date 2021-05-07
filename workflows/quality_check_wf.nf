@@ -1,6 +1,6 @@
 nextflow.enable.dsl = 2
 
-workflow QUALITY_CHECK {
+workflow QUALITY_CHECK_WF {
 
     sra_ch = Channel.fromFilePairs(params.reads)
 

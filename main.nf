@@ -16,9 +16,9 @@ include { QUAST as QUAST_UNICYCLER } from "./modules/quast/quast.nf"  addParams(
 include { UNICYCLER } from "./modules/unicycler/unicycler.nf"
 
 // Workflow inclusion
-include { BASE } from "./workflows/base.nf"
-include { QUALITY_CHECK } from "./workflows/quality_check.nf"
-include { WF_SNIPPY } from "./workflows/wf_snippy.nf"
+include { BASE_WF } from "./workflows/base_wf.nf"
+include { QUALITY_CHECK_WF } from "./workflows/quality_check.nf"
+include { WSNIPPY_WF } from "./workflows/wf_snippy.nf"
 include { SNIPPY_ANISA_WF } from "./workflow/snippy_anisa_wf.nf"
 include { SPADES_WF } from "./workflow/spades_wf.nf"
 include { UNICYCLER_WF } from "./workflow/unicycler_wf.nf"

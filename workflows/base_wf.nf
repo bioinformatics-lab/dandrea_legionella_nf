@@ -1,6 +1,6 @@
 nextflow.enable.dsl = 2
 
-workflow BASE {
+workflow BASE_WF {
 
     sra_ch = Channel.fromFilePairs(params.reads)
 

@@ -1,6 +1,6 @@
 nextflow.enable.dsl = 2
 
-workflow WF_SNIPPY {
+workflow SNIPPY_WF {
     sra_ch = Channel.fromFilePairs(params.reads)
     refGbk_ch = Channel.fromPath(Paths.get(params.gbkFile))
 

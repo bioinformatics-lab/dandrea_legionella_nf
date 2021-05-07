@@ -17,8 +17,8 @@ include { UNICYCLER } from "./modules/unicycler/unicycler.nf"
 
 // Workflow inclusion
 include { BASE_WF } from "./workflows/base_wf.nf"
-include { QUALITY_CHECK_WF } from "./workflows/quality_check.nf"
-include { WSNIPPY_WF } from "./workflows/wf_snippy.nf"
+include { QUALITY_CHECK_WF } from "./workflows/quality_check_wf.nf"
+include { WSNIPPY_WF } from "./workflows/snippy_wf.nf"
 include { SNIPPY_ANISA_WF } from "./workflow/snippy_anisa_wf.nf"
 include { SPADES_WF } from "./workflow/spades_wf.nf"
 include { UNICYCLER_WF } from "./workflow/unicycler_wf.nf"

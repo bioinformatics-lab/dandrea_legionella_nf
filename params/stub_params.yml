@@ -1,4 +1,0 @@
-outdir: "./results"
-reads: "./data/mock_data/*_{R1,R2}.fastq.gz"
-gbkFile: "./data/mock_data/NZ_CP029563.1_Legionella_anisa.gb"
-

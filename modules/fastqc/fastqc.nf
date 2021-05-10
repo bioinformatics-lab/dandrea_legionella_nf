@@ -21,6 +21,15 @@ process FASTQC {
     fastqc *fastq*
     """
 
+    stub:
+
+    """
+    echo fastqc *fastq*
+
+    mkdir ${genomeName}
+    touch ${genomeName}/${genomeName}.html
+    touch ${genomeName}/${genomeName}.zip
+    """
 }
 
 

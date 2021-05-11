@@ -8,7 +8,6 @@ params.saveMode = 'copy'
 process SPADES {
     tag "${genomeName}"
     publishDir params.resultsDir, mode: params.saveMode
-    container 'quay.io/biocontainers/spades:3.14.0--h2d02072_0'
 
     input:
     tuple val(genomeName), path(genomeReads)
@@ -23,6 +22,14 @@ process SPADES {
     """
     spades.py -k 21,33,55,77 --careful --only-assembler --pe1-1 ${genomeReads[0]} --pe1-2 ${genomeReads[1]} -o ${genomeName} -t ${task.cpus}
     cp ${genomeName}/contigs.fasta ${genomeName}_contigs.fasta 
+    """
+
+    stub:
+    """
+    echo  "spades.py -k 21,33,55,77 --careful --only-assembler --pe1-1 ${genomeReads[0]} --pe1-2 ${genomeReads[1]} -o ${genomeName} -t ${task.cpus}"
+    
+    mkdir ${genomeName}
+    touch ${genomeName}/${genomeName}_contigs.fasta
     """
 }
 

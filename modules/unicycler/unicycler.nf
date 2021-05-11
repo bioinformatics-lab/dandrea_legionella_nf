@@ -7,7 +7,6 @@ params.shouldPublish = true
 process UNICYCLER {
     tag "${genomeName}"
     publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
-    container 'quay.io/biocontainers/unicycler:0.4.8--py38h8162308_3'
 
     input:
     tuple val(genomeName),  path(genomeReads)
@@ -24,6 +23,19 @@ process UNICYCLER {
     --short1 ${genomeReads[0]} \
     --short2 ${genomeReads[1]} \
     --out ${genomeName} 
+    """
+
+    stub:
+
+    """
+    echo "unicycler  \
+    -t ${task.cpus} \
+    --keep 0 \
+    --short1 ${genomeReads[0]} \
+    --short2 ${genomeReads[1]} \
+    --out ${genomeName}" 
+
+    mkdir ${genomeName}
     """
 
 }

@@ -5,5 +5,5 @@ workflow SNIPPY_WF {
     refGbk_ch = Channel.fromPath(Paths.get(params.gbkFile))
 
     TRIMMOMATIC(sra_ch)
-    SNIPPY(TRIMMOMATIC.out, refGbk_ch )
+    SNIPPY(TRIMMOMATIC.out, refGbk_ch)
 }

@@ -1,4 +1,3 @@
-
 workflow QUAST_WF {
 
     filtered_spades_ch = Channel.fromPath("$baseDir/results/spades/filtered/*fna").collect()

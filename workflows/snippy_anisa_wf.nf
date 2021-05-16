@@ -8,5 +8,5 @@ workflow SNIPPY_ANISA_WF {
 
     refGbk_ch = Channel.fromPath("$baseDir/data/reference/NZ_CP029563.1_Legionella_anisa.gb")
 
-    SNIPPY_ANISA(trimmedReads_ch, refGbk_ch )
+    SNIPPY_ANISA(trimmedReads_ch, refGbk_ch)
 }

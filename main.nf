@@ -8,8 +8,8 @@ include { SPADES } from "./modules/spades/spades.nf"
 include { PROKKA } from "./modules/prokka/prokka.nf"
 include { FASTQC as FASTQC_UNTRIMMED } from "./modules/fastqc/fastqc.nf" addParams(resultsDir: "${params.outdir}/fastqc_untrimmed")
 include { FASTQC as FASTQC_TRIMMED } from "./modules/fastqc/fastqc.nf" addParams(resultsDir: "${params.outdir}/fastqc_trimmed")
-include { MULTIQC as MULTIQC_UNTRIMMED } from "./modules/multiqc/multiqc.nf"
-include { MULTIQC as MULTIQC_TRIMMED } from "./modules/multiqc/multiqc.nf"
+include { MULTIQC as MULTIQC_TRIMMED } from "./modules/multiqc/multiqc.nf" addParams(resultsDir: "${params.outdir}/multiqc_trimmed", fastqcResultsDir: "${params.outdir}/fastqc_trimmed")
+include { MULTIQC as MULTIQC_UNTRIMMED } from "./modules/multiqc/multiqc.nf" addParams(resultsDir: "${params.outdir}/multiqc_untrimmed", fastqcResultsDir: "${params.outdir}/fastqc_untrimmed")
 include { SNIPPY } from "./modules/snippy/snippy.nf"
 include { QUAST as QUAST_SPADES } from "./modules/quast/quast.nf" addParams(resultsDir: "${params.outdir}/quast_filtered_spades")
 include { QUAST as QUAST_UNICYCLER } from "./modules/quast/quast.nf" addParams(resultsDir: "${params.outdir}/quast_filtered_unicycler")

@@ -30,10 +30,13 @@ workflow {
     sra_ch = Channel.fromFilePairs(params.reads)
 
     FASTQC_UNTRIMMED(sra_ch)
-    MULTIQC_UNTRIMMED(FASTQC_UNTRIMMED.out)
+    MULTIQC_UNTRIMMED(FASTQC_UNTRIMMED.out.flatten().collect())
+
     TRIMMOMATIC(sra_ch)
     FASTQC_TRIMMED(TRIMMOMATIC.out)
-    MULTIQC_TRIMMED(FASTQC_TRIMMED.out)
+    MULTIQC_TRIMMED(FASTQC_TRIMMED.out.flatten().collect())
+
+
 //    SPADES(TRIMMOMATIC.out)
 //    PROKKA(SPADES.out)
 //    SNIPPY()

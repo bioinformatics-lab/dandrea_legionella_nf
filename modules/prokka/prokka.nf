@@ -9,7 +9,7 @@ process PROKKA {
     publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
-    tuple val(genomeName),  path(bestContig)
+    tuple val(genomeName), path(bestContig)
 
     output:
     path("${genomeName}")
@@ -29,7 +29,7 @@ process PROKKA {
     stub:
 
     """
-    echo "prokka --outdir ${genomeName} --prefix $genomeName ${bestContig} --cpus ${task.cpus}"
+    echo "prokka --outdir ${genomeName} --prefix $genomeName --cpus ${task.cpus} ${bestContig} "
 
     mkdir ${genomeName}
     """
@@ -40,17 +40,17 @@ process PROKKA {
 
 workflow test {
 
-input_ch = Channel.fromFilePairs("$launchDir/test_data/*_{1,2}.fastq.gz")
+    input_ch = Channel.fromFilePairs("$launchDir/test_data/*_{1,2}.fastq.gz")
 
-params.SPADES = [
-	shouldPublish: false
-]
+    params.SPADES = [
+            shouldPublish: false
+    ]
 
-include { SPADES } from "../spades/spades.nf" addParams( params.SPADES )
+    include { SPADES } from "../spades/spades.nf" addParams(params.SPADES)
 
-SPADES(input_ch)
+    SPADES(input_ch)
 
-PROKKA(SPADES.out)
+    PROKKA(SPADES.out)
 
 
 }

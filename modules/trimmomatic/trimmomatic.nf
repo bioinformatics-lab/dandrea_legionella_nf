@@ -1,4 +1,4 @@
-nextflow.enable.dsl= 2
+nextflow.enable.dsl = 2
 
 
 params.saveMode = 'copy'
@@ -14,16 +14,16 @@ process TRIMMOMATIC {
     tuple val(genomeName), path(genomeReads)
 
     output:
-    tuple val(genomeFileName), path("*_{R1,R2}.p.fastq.gz")
+    tuple val(genomeName), path("*_{R1,R2}.p.fastq.gz")
 
     script:
 
-    genomeFileName = genomeName.toString().split("\\_")[0]
+    fq_1_paired = genomeName + '_R1.p.fastq.gz'
+    fq_1_unpaired = genomeName + '_R1.s.fastq.gz'
+    fq_2_paired = genomeName + '_R2.p.fastq.gz'
+    fq_2_unpaired = genomeName + '_R2.s.fastq.gz'
 
-    fq_1_paired = genomeFileName + '_R1.p.fastq.gz'
-    fq_1_unpaired = genomeFileName + '_R1.s.fastq.gz'
-    fq_2_paired = genomeFileName + '_R2.p.fastq.gz'
-    fq_2_unpaired = genomeFileName + '_R2.s.fastq.gz'
+    def adapterFile = "/usr/local/share/trimmomatic-0.35-6/adapters/NexteraPE-PE.fa"
 
     """
     trimmomatic \
@@ -36,16 +36,17 @@ process TRIMMOMATIC {
     $fq_1_unpaired \
     $fq_2_paired \
     $fq_2_unpaired \
-    LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:36
+    ILLUMINACLIP:${adapterFile}:2:40:15  \
+    LEADING:3 TRAILING:3 SLIDINGWINDOW:3:28 HEADCROP:20 MINLEN:40
     """
 
     stub:
-    genomeFileName = genomeName.toString().split("\\_")[0]
+    fq_1_paired = genomeName + '_R1.p.fastq.gz'
+    fq_1_unpaired = genomeName + '_R1.s.fastq.gz'
+    fq_2_paired = genomeName + '_R2.p.fastq.gz'
+    fq_2_unpaired = genomeName + '_R2.s.fastq.gz'
 
-    fq_1_paired = genomeFileName + '_R1.p.fastq.gz'
-    fq_1_unpaired = genomeFileName + '_R1.s.fastq.gz'
-    fq_2_paired = genomeFileName + '_R2.p.fastq.gz'
-    fq_2_unpaired = genomeFileName + '_R2.s.fastq.gz'
+    adapterFile = "/usr/local/share/trimmomatic-0.35-6/adapters/NexteraPE-PE.fa"
 
     """
     echo "trimmomatic \
@@ -58,11 +59,21 @@ process TRIMMOMATIC {
     $fq_1_unpaired \
     $fq_2_paired \
     $fq_2_unpaired \
-    LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:36"
+    ILLUMINACLIP:${adapterFile}:2:40:15  \
+    LEADING:3 TRAILING:3 SLIDINGWINDOW:3:28 HEADCROP:20 MINLEN:40"
 
-    mkdir ${genomeName}
-    touch ${genomeName}/${genomeName}_R1.p.fastq.gz
-    touch ${genomeName}/${genomeName}_R2.p.fastq.gz
+    touch ${genomeName}_R1.p.fastq.gz
+    touch ${genomeName}_R2.p.fastq.gz
+
     """
 }
 
+workflow test {
+
+
+    input_ch = Channel.fromFilePairs("$launchDir/test_data/*_{1,2}.fastq.gz")
+
+
+    TRIMMOMATIC(input_ch)
+
+}

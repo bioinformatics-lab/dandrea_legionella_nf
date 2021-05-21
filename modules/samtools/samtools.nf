@@ -12,7 +12,7 @@ process FASTANI {
     container 'quay.io/biocontainers/unicycler:0.4.8--py38h8162308_3'
 
     input:
-    tuple val(genomeName),  path(genomeReads)
+    tuple val(genomeName), path(genomeReads)
 
     output:
     path("${genomeName}")

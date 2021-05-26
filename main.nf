@@ -29,6 +29,7 @@ workflow {
 
     sra_ch = Channel.fromFilePairs(params.reads)
 
+    // Step-1 : QC
     FASTQC_UNTRIMMED(sra_ch)
     MULTIQC_UNTRIMMED(FASTQC_UNTRIMMED.out.flatten().collect())
 

@@ -14,6 +14,7 @@ include { SNIPPY } from "./modules/snippy/snippy.nf"
 include { QUAST as QUAST_SPADES } from "./modules/quast/quast.nf" addParams(resultsDir: "${params.outdir}/quast_filtered_spades")
 include { QUAST as QUAST_UNICYCLER } from "./modules/quast/quast.nf" addParams(resultsDir: "${params.outdir}/quast_filtered_unicycler")
 include { UNICYCLER } from "./modules/unicycler/unicycler.nf"
+include { UTILS_FILTER_CONTIGS } from "./modules/utils/filter_contigs/filter_contigs.nf"
 
 // Workflows
 //include { BASE_WF } from "./workflows/base_wf.nf"

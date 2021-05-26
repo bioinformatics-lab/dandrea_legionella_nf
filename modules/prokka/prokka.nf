@@ -10,6 +10,7 @@ process PROKKA {
 
     input:
     tuple val(genomeName), path(bestContig)
+    path(reference)
 
     output:
     path("${genomeName}")
@@ -17,19 +18,19 @@ process PROKKA {
     script:
 
     """
-    prokka --outdir ${genomeName} --prefix $genomeName --cpus ${task.cpus} ${bestContig} 
+    prokka --outdir ${genomeName} --prefix $genomeName --cpus ${task.cpus} --proteins ${reference} ${bestContig}
     """
 
     stub:
-
     """
-    echo "prokka --outdir ${genomeName} --prefix $genomeName --cpus ${task.cpus} ${bestContig} "
+    echo "prokka --outdir ${genomeName} --prefix $genomeName --cpus ${task.cpus} --proteins ${reference} ${bestContig}"
+
 
     mkdir ${genomeName}
+
     """
-
-
 }
+
 
 
 workflow test {

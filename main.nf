@@ -28,18 +28,23 @@ include { UNICYCLER } from "./modules/unicycler/unicycler.nf"
 workflow {
 
     sra_ch = Channel.fromFilePairs(params.reads)
+    referenceFasta_ch = Channel.value(java.nio.file.Paths.get(params.referenceFasta))
 
     // Step-1 : QC
-    FASTQC_UNTRIMMED(sra_ch)
-    MULTIQC_UNTRIMMED(FASTQC_UNTRIMMED.out.flatten().collect())
+    // FASTQC_UNTRIMMED(sra_ch)
+    // MULTIQC_UNTRIMMED(FASTQC_UNTRIMMED.out.flatten().collect())
 
     TRIMMOMATIC(sra_ch)
-    FASTQC_TRIMMED(TRIMMOMATIC.out)
-    MULTIQC_TRIMMED(FASTQC_TRIMMED.out.flatten().collect())
+    // FASTQC_TRIMMED(TRIMMOMATIC.out)
+    // MULTIQC_TRIMMED(FASTQC_TRIMMED.out.flatten().collect())
 
 
-//    SPADES(TRIMMOMATIC.out)
-//    PROKKA(SPADES.out)
-//    SNIPPY()
-//    QUAST()
+
+    // Step-2
+    SPADES(TRIMMOMATIC.out)
+    UTILS_FILTER_CONTIGS(SPADES.out[0])
+    QUAST(UTILS_FILTER_CONTIGS.out.collect(), referenceFasta_ch)
+    PROKKA(SPADES.out[0], referenceFasta_ch)
+    SNIPPY(TRIMMOMATIC.out, referenceFasta_ch)
+
 }

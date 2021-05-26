@@ -11,6 +11,7 @@ process QUAST {
 
     input:
     path(scaffoldFiles)
+    path(reference)
 
     output:
     path("quast_results")
@@ -19,25 +20,16 @@ process QUAST {
     script:
 
     """
-    quast ${scaffoldFiles}
+    quast -r ${reference} -t ${task.cpus} ${scaffoldFiles}
+
     """
 
     stub:
     """
-    echo "quast ${scaffoldFiles}"
+    echo "quast -r ${reference} -t ${task.cpus} ${scaffoldFiles}"
 
-    mkdir basic_stats/
-    mkdir icarus_viewers/
-    
-    touch icarus.html
-    touch report.html
-    touch report.pdf
-    touch report.tex
-    touch report.tsv
-    touch report.txt
-    touch transposed_report.tex
-    touch transposed_report.tsv
-    touch transposed_report.txt 
+    mkdir quast_results
+
     """
 }
 

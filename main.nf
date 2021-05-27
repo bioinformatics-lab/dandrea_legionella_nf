@@ -1,5 +1,3 @@
-import java.nio.file.Paths
-
 nextflow.enable.dsl = 2
 
 // Modules

@@ -1,4 +1,3 @@
 outdir: "./results"
-reads: "./data/raw/*_{R1,R2}_*.fastq.gz"
-gbkFile: "./data/reference/NZ_CP029563.1_Legionella_anisa.gb"
-
+reads: "./data/full_data/*_{R1,R2}_*.fastq.gz"
+referenceFasta: "./data/reference/NZ_CP013742.1.fasta"

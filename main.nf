@@ -27,7 +27,6 @@ include { UTILS_FILTER_CONTIGS } from "./modules/utils/filter_contigs/filter_con
 workflow {
 
     sra_ch = Channel.fromFilePairs(params.reads)
-    referenceFasta_ch = Channel.value(java.nio.file.Paths.get(params.referenceFasta))
 
     // Step-1 : QC
     // FASTQC_UNTRIMMED(sra_ch)
@@ -42,8 +41,8 @@ workflow {
     // Step-2
     SPADES(TRIMMOMATIC.out)
     UTILS_FILTER_CONTIGS(SPADES.out[0])
-    QUAST(UTILS_FILTER_CONTIGS.out.collect(), referenceFasta_ch)
-    PROKKA(SPADES.out[0], referenceFasta_ch)
-    SNIPPY(TRIMMOMATIC.out, referenceFasta_ch)
+    QUAST(UTILS_FILTER_CONTIGS.out.collect(), params.reference_fasta)
+    PROKKA(SPADES.out[0], params.reference_fasta)
+    SNIPPY(TRIMMOMATIC.out, params.reference_fasta)
 
 }

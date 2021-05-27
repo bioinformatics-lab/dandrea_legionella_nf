@@ -29,12 +29,11 @@ workflow {
     sra_ch = Channel.fromFilePairs(params.reads)
 
     // Step-1 : QC
-    // FASTQC_UNTRIMMED(sra_ch)
-    // MULTIQC_UNTRIMMED(FASTQC_UNTRIMMED.out.flatten().collect())
-
+    FASTQC_UNTRIMMED(sra_ch)
+    MULTIQC_UNTRIMMED(FASTQC_UNTRIMMED.out.flatten().collect())
     TRIMMOMATIC(sra_ch)
-    // FASTQC_TRIMMED(TRIMMOMATIC.out)
-    // MULTIQC_TRIMMED(FASTQC_TRIMMED.out.flatten().collect())
+    FASTQC_TRIMMED(TRIMMOMATIC.out)
+    MULTIQC_TRIMMED(FASTQC_TRIMMED.out.flatten().collect())
 
 
 

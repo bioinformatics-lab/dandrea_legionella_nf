@@ -1,3 +1,4 @@
-outdir: "./results"
-reads: "./data/full_data/*_{R1,R2}_*.fastq.gz"
-referenceFasta: "./data/reference/NZ_CP013742.1.fasta"
+outdir: "${baseDir}/results"
+reads: "${baseDir}/data/full_data/*_{R1,R2}_*.fastq.gz"
+reference_fasta: "${baseDir}/data/reference/NZ_CP013742.1.fasta"
+reference_gbk: "${baseDir}/data/reference/NZ_CP013742.1_full.gb"

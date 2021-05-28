@@ -16,6 +16,7 @@ process UTILS_FILTER_CONTIGS {
 
     output:
     path("*filtered.fasta")
+    tuple val(genomeName), path("*filtered.fasta")
 
 
     script:

@@ -11,8 +11,8 @@ include { MULTIQC as MULTIQC_UNTRIMMED } from "./modules/multiqc/multiqc.nf" add
 include { SNIPPY } from "./modules/snippy/snippy.nf"
 include { QUAST } from "./modules/quast/quast.nf" addParams(resultsDir: "${params.outdir}/quast")
 include { QUAST as QUAST_UNICYCLER } from "./modules/quast/quast.nf" addParams(resultsDir: "${params.outdir}/quast_filtered_unicycler")
-include { UNICYCLER } from "./modules/unicycler/unicycler.nf"
 include { UTILS_FILTER_CONTIGS } from "./modules/utils/filter_contigs/filter_contigs.nf"
+include { CLASSIFY_TAXONOMY } from "./workflows/classify_taxonomy/classify_taxonomy.nf"
 
 // Workflows
 //include { BASE_WF } from "./workflows/base_wf.nf"
@@ -36,12 +36,16 @@ workflow {
     MULTIQC_TRIMMED(FASTQC_TRIMMED.out.flatten().collect())
 
 
-
     // Step-2
     SPADES(TRIMMOMATIC.out)
     UTILS_FILTER_CONTIGS(SPADES.out[0])
-    QUAST(UTILS_FILTER_CONTIGS.out.collect(), params.reference_fasta)
-    PROKKA(SPADES.out[0], params.reference_fasta)
+    QUAST(UTILS_FILTER_CONTIGS.out[0].collect(), params.reference_fasta)
+    PROKKA(UTILS_FILTER_CONTIGS.out[1], params.reference_gbk)
     SNIPPY(TRIMMOMATIC.out, params.reference_fasta)
 
+
+    // Step-3
+    CLASSIFY_TAXONOMY(TRIMMOMATIC.out)
+    // TODO
+    // FASTANI
 }

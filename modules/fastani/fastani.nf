@@ -1,8 +1,6 @@
-// TODO
-
 nextflow.enable.dsl = 2
 
-params.resultsDir = "${params.outdir}/unicycler"
+params.resultsDir = "${params.outdir}/fastani"
 params.saveMode = 'copy'
 params.shouldPublish = true
 
@@ -19,25 +17,13 @@ process FASTANI {
     script:
 
     """
-    unicycler  \
-    -t ${task.cpus} \
-    --keep 0 \
-    --short1 ${genomeReads[0]} \
-    --short2 ${genomeReads[1]} \
-    --out ${genomeName} 
+    fastAni -t 20 -q ${TODO} HZ01.fna -r ${reference} --visualize -o ${genomeName}.csv
     """
 
     stub:
 
     """
-    echo "unicycler  \
-    -t ${task.cpus} \
-    --keep 0 \
-    --short1 ${genomeReads[0]} \
-    --short2 ${genomeReads[1]} \
-    --out ${genomeName}" 
 
-    mkdir ${genomeName}
     """
 }
 

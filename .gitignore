@@ -1,0 +1,10 @@
+.DS_Store
+.idea
+*.log
+tmp/
+
+
+_scratch
+_resources
+data/mock_data/*
+results*

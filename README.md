@@ -38,13 +38,10 @@ Avaliable Workflows: `BASE`, `QUALITY_CHECK`, `WF_SNIPPY`, `SNIPPY_ANISA_WF`, `S
 
 You can use diferent profiles for this pipeline, based on the computation enviroment at your disposal. Here are the Avaliable Profiles:
 
-* aws 
-
 * gls
-
 * azureBatch
-
 * awsBatch
+* stub
 
 `Note: Update conf/profile with your own credentials`
 
@@ -59,6 +56,6 @@ This project has the `-stub-run` feature, that can be used for testing propouse,
 ```
 bash data/mock_data/generate_mock_data.sh
 nextflow run main.nf \
-		 -params-file params/stub_params.yaml \
+		 -params-file params/test_params.yaml \
 		 -stub-run
 ``` 

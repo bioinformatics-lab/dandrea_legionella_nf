@@ -1,4 +1,10 @@
-outdir: "${baseDir}/results"
-reads: "${baseDir}/data/mock_data/*_{R1,R2}.fastq.gz"
-reference_fasta: "${baseDir}/data/mock_data/NZ_CP013742.1.fasta"
-reference_gbk: "${baseDir}/data/mock_data/NZ_CP013742.1_full.gb"
+sra_ids:
+    - ERR1035258
+    - ERR1035259
+    - ERR1035260
+
+outdir: FIXME
+
+ncbi_api_key: FIXME
+
+gatk38_jar: FIXME

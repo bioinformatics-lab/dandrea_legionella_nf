@@ -56,6 +56,6 @@ This project has the `-stub-run` feature, that can be used for testing propouse,
 ```
 bash data/mock_data/generate_mock_data.sh
 nextflow run main.nf \
-		 -params-file params/test_params.yaml \
+		 -params-file params/stub_params.yaml \
 		 -stub-run
 ``` 

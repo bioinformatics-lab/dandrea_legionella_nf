@@ -23,5 +23,6 @@ process SAMTOOLS_SORT {
 
     """
     echo "samtools sort ${bamRead} >  ${genomeName}.sort.bam"
+    touch ${genomeName}.sort.bam
     """
 }

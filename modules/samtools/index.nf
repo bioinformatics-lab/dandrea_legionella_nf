@@ -25,5 +25,6 @@ process SAMTOOLS_INDEX {
 
     """
     echo "samtools index ${sortedBam}"
+    touch ${sortedBam}.bai
     """
 }

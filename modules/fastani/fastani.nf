@@ -18,13 +18,13 @@ process FASTANI {
     script:
 
     """
-    fastAni -t ${task.cpus} -q ${filteredContig} -r ${reference} --visualize -o ${genomeName}.csv
+    fastANI -t ${task.cpus} -q ${filteredContig} -r ${reference} --visualize -o ${genomeName}.csv
     """
 
     stub:
 
     """
-    echo "fastAni -t ${task.cpus} -q ${filteredContig} -r ${reference} --visualize -o ${genomeName}.csv"
+    echo "fastANI -t ${task.cpus} -q ${filteredContig} -r ${reference} --visualize -o ${genomeName}.csv"
     touch ${genomeName}.csv
     """
 }

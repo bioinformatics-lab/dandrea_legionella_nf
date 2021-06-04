@@ -62,11 +62,13 @@ workflow {
 
     // Step-4
     BWA_INDEX(params.reference_fasta)
-    BWA_MEM()
-    SAMTOOLS_INDEX()
-    SAMTOOLS_FAIDX()
-    SAMTOOLS_SORT()
-    GATK_HAPLOTYPE_CALLER()
-    GATK_MARK_DUPLICATES_SPARK()
-    PICARD_CREATE_SEQUENCE_DICTIONARY()
+    SAMTOOLS_FAIDX(params.reference_fasta)
+    PICARD_CREATE_SEQUENCE_DICTIONARY(params.reference_fasta)
+
+    // Step-5
+    // BWA_MEM()
+    // SAMTOOLS_INDEX()
+    // SAMTOOLS_SORT()
+    // GATK_HAPLOTYPE_CALLER()
+    // GATK_MARK_DUPLICATES_SPARK()
 }

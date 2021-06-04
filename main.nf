@@ -56,7 +56,6 @@ workflow {
 
 
     // Step-3
-    CLASSIFY_TAXONOMY(TRIMMOMATIC.out)
     FASTANI(UTILS_FILTER_CONTIGS.out[1], params.reference_fasta)
 
 
@@ -66,6 +65,7 @@ workflow {
     PICARD_CREATE_SEQUENCE_DICTIONARY(params.reference_fasta)
 
     // Step-5
+    // CLASSIFY_TAXONOMY(TRIMMOMATIC.out)
     // BWA_MEM()
     // SAMTOOLS_INDEX()
     // SAMTOOLS_SORT()

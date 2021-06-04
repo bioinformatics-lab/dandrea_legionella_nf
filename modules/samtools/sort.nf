@@ -1,7 +1,12 @@
+nextflow.enable.dsl = 2
+
+params.resultsDir = "${params.outdir}/samtools/sort"
+params.saveMode = 'copy'
+params.shouldPublish = true
 
 process SAMTOOLS_SORT {
-    publishDir params.sortResultsDir, mode: params.saveMode
-    container 'quay.io/biocontainers/samtools:1.10--h2e538c0_3'
+    tag "${genomeName}"
+    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
     tuple val(genomeName), path(bamRead)

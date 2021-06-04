@@ -1,7 +1,12 @@
+nextflow.enable.dsl = 2
+
+params.resultsDir = "${params.outdir}/samtools/index"
+params.saveMode = 'copy'
+params.shouldPublish = true
 
 process SAMTOOLS_INDEX {
-    publishDir params.indexResultsDir, mode: params.saveMode
-    container 'quay.io/biocontainers/samtools:1.10--h2e538c0_3'
+    tag "${genomeName}"
+    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
     path(refFasta)

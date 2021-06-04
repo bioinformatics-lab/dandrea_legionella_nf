@@ -1,8 +1,12 @@
+nextflow.enable.dsl = 2
+
+params.resultsDir = "${params.outdir}/gatk/haplotype_caller"
+params.saveMode = 'copy'
+params.shouldPublish = true
+
 process GATK_HAPLOTYPE_CALLER {
-    publishDir params.haplotypeCallerResultsDir, mode: params.saveMode
-    container 'quay.io/biocontainers/gatk4:4.1.8.1--py38_0'
-
-
+    tag "${genomeName}"
+    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
     path(refFasta)
@@ -10,13 +14,12 @@ process GATK_HAPLOTYPE_CALLER {
     path("samtoolsFaidxResultsDir")
     path("bwaIndexResultsDir")
     path("picardCreateSequenceDictionaryResultsDir")
-    path(sortedBam)
+    tuple val(sortedBamFileName), path(sortedBam)
 
     output:
     path("*vcf*")
 
     script:
-    def sortedBamFileName = sortedBam.toString().split("\\.")[0]
 
     """
     cp -a samtoolsIndexResultsDir/${sortedBamFileName}* ./
@@ -26,4 +29,12 @@ process GATK_HAPLOTYPE_CALLER {
 
     gatk HaplotypeCaller -R ${refFasta} -I ${sortedBam} -O ${sortedBamFileName}.vcf
     """
+
+    stub:
+
+    """
+    echo "gatk HaplotypeCaller -R ${refFasta} -I ${sortedBam} -O ${sortedBamFileName}.vcf"
+    touch ${sortedBamFileName}.vcf
+    """
+
 }

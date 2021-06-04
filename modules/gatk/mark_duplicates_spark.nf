@@ -1,25 +1,34 @@
+nextflow.enable.dsl = 2
+
+params.resultsDir = "${params.outdir}/gatk/mark_duplicates_spark"
+params.saveMode = 'copy'
+params.shouldPublish = true
+
 process GATK_MARK_DUPLICATES_SPARK {
-    publishDir params.markDuplicatesSparkResultsDir, mode: params.saveMode
-    container 'quay.io/biocontainers/gatk4:4.1.8.1--py38_0'
-
-
-    when:
-    params.markDuplicatesSpark
+    tag "${genomeName}"
+    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
-    path refFasta from ch_refFasta
-    file(samFile) from ch_in_markDuplicatesSpark
+    path(refFasta)
+    tuple val(samFileName), path(samFile)
 
 
     output:
-    tuple file("*bam*"),
-            file("*_metrics.txt") into ch_out_markDuplicatesSpark
+    tuple file("*bam*"), file("*_metrics.txt")
 
 
     script:
-    samFileName = samFile.toString().split("\\.")[0]
 
     """
     gatk MarkDuplicatesSpark -I ${samFile} -M ${samFileName}_dedup_metrics.txt -O ${samFileName}.dedup.sort.bam
     """
+
+    stub:
+
+    """
+    echo "gatk MarkDuplicatesSpark -I ${samFile} -M ${samFileName}_dedup_metrics.txt -O ${samFileName}.dedup.sort.bam"
+
+    touch ${samFileName}.dedup.sort.bam
+    """
+
 }

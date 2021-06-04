@@ -1,5 +1,4 @@
 nextflow.enable.dsl = 2
-import java.nio.file.Paths
 
 params.resultsDir = "${params.outdir}/bwa/mem"
 params.saveMode = 'copy'
@@ -9,15 +8,13 @@ process BWA_MEM {
     tag "${genomeName}"
     publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
-    container 'quay.io/biocontainers/bwa:0.7.17--hed695b0_7'
-
 
     input:
 
     tuple val(genomeName), path(genomeReads)
     path(indexResultsDir)
     path(samtoolsFaidxResultsDir)
-    path refFasta
+    path(refFasta)
 
     output:
 
@@ -25,7 +22,7 @@ process BWA_MEM {
 
 
     script:
-    def TAG="@RG\\tID:$genomeName\\tSM:$genomeName\\tLB:$genomeName"
+    def TAG="@RG\\tID:${genomeName}\\tSM:${genomeName}\\tLB:${genomeName}"
 
     """
     cp ${indexResultsDir}/* .

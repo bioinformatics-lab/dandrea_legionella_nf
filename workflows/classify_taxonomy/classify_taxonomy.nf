@@ -49,6 +49,6 @@ process CLASSIFY_TAXONOMY {
     stub:
     """
     touch ${genomeName}.kreport
-    touch ${genomeName}.classificaton.txt
+    touch ${genomeName}.classification.txt
     """
 }

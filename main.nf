@@ -51,7 +51,7 @@ workflow {
     // NOTE This quast command operates on all contig
     // There is another one, mentioned in the module for a single contig
     QUAST(UTILS_FILTER_CONTIGS.out[0].collect(), params.reference_fasta)
-    PROKKA(UTILS_FILTER_CONTIGS.out[1], params.reference_gbk)
+    PROKKA(UTILS_FILTER_CONTIGS.out[1], params.reference_fasta)
     SNIPPY(TRIMMOMATIC.out, params.reference_fasta)
 
 

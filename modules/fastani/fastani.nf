@@ -9,21 +9,22 @@ process FASTANI {
     publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
-    tuple val(genomeName), path(genomeReads)
+    tuple val(genomeName), path(filteredContig)
+    path(reference)
 
     output:
-    path("${genomeName}")
+    path("${genomeName}.csv")
 
     script:
 
     """
-    fastAni -t 20 -q ${TODO} HZ01.fna -r ${reference} --visualize -o ${genomeName}.csv
+    fastAni -t ${task.cpus} -q ${filteredContig} -r ${reference} --visualize -o ${genomeName}.csv
     """
 
     stub:
 
     """
-
+    echo "fastAni -t ${task.cpus} -q ${filteredContig} -r ${reference} --visualize -o ${genomeName}.csv"
     """
 }
 

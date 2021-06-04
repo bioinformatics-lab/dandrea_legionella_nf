@@ -39,6 +39,8 @@ workflow {
     // Step-2
     SPADES(TRIMMOMATIC.out)
     UTILS_FILTER_CONTIGS(SPADES.out[0])
+    // NOTE This quast command operates on all contig
+    // There is another one, mentioned in the module for a single contig
     QUAST(UTILS_FILTER_CONTIGS.out[0].collect(), params.reference_fasta)
     PROKKA(UTILS_FILTER_CONTIGS.out[1], params.reference_gbk)
     SNIPPY(TRIMMOMATIC.out, params.reference_fasta)
@@ -46,6 +48,5 @@ workflow {
 
     // Step-3
     CLASSIFY_TAXONOMY(TRIMMOMATIC.out)
-    // TODO
-    // FASTANI
+    FASTANI(UTILS_FILTER_CONTIGS.out[1], params.reference_fasta)
 }

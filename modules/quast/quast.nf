@@ -10,7 +10,7 @@ process QUAST {
     publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
-    path(scaffoldFiles)
+    path(contigFiles)
     path(reference)
 
     output:
@@ -19,14 +19,17 @@ process QUAST {
 
     script:
 
+// NOTE This command is for an individual contig file
+// quast -r ${reference}  --circos ${filtered_contig}
+
     """
-    quast -r ${reference} -t ${task.cpus} ${scaffoldFiles}
+    quast -r ${reference} -t ${task.cpus} ${contigFiles}
 
     """
 
     stub:
     """
-    echo "quast -r ${reference} -t ${task.cpus} ${scaffoldFiles}"
+    echo "quast -r ${reference} -t ${task.cpus} ${contigFiles}"
 
     mkdir quast_results
 

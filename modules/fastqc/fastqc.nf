@@ -24,11 +24,11 @@ process FASTQC {
     stub:
 
     """
-    echo fastqc *fastq*
+    echo "fastqc *fastq*"
 
     mkdir ${genomeName}
-    touch ${genomeName}/${genomeName}.html
-    touch ${genomeName}/${genomeName}.zip
+    touch ${genomeName}.html
+    touch ${genomeName}.zip
     """
 }
 

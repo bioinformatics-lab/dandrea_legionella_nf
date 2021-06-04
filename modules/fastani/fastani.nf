@@ -25,6 +25,7 @@ process FASTANI {
 
     """
     echo "fastAni -t ${task.cpus} -q ${filteredContig} -r ${reference} --visualize -o ${genomeName}.csv"
+    touch ${genomeName}.csv
     """
 }
 

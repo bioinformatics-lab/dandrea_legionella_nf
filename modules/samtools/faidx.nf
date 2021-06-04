@@ -23,6 +23,7 @@ process SAMTOOLS_FAIDX {
     stub:
     """
     echo "samtools faidx ${refFasta}"
+    touch ${refFasta}.fai
     """
 
 }

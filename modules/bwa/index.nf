@@ -24,5 +24,11 @@ process BWA_INDEX {
     stub:
     """
     echo "bwa index ${refFasta}"
+
+    touch ${refFasta}.amb
+    touch ${refFasta}.ann
+    touch ${refFasta}.bwt
+    touch ${refFasta}.pac
+    touch ${refFasta}.sa
     """
 }

@@ -14,14 +14,14 @@ include { QUAST as QUAST_UNICYCLER } from "./modules/quast/quast.nf" addParams(r
 include { UTILS_FILTER_CONTIGS } from "./modules/utils/filter_contigs/filter_contigs.nf"
 include { CLASSIFY_TAXONOMY } from "./workflows/classify_taxonomy/classify_taxonomy.nf"
 include { FASTANI } from "./modules/fastani/fastani.nf"
-include {    BWA_INDEX} from "./modules/bwa/index.nf"
-include {    BWA_MEM} from "./modules/bwa/mem.nf"
-include {    SAMTOOLS_INDEX} from "./modules/samtools/index.nf"
-include {    SAMTOOLS_FAIDX} from "./modules/samtools/faidx.nf"
-include {    SAMTOOLS_SORT} from "./modules/samtools/sort.nf"
-include {    GATK_HAPLOTYPE_CALLER} from "./modules/gatk/haplotype_caller.nf"
-include {    GATK_MARK_DUPLICATES_SPARK} from "./modules/gatk/mark_duplicates_spark.nf"
-include {    PICARD_CREATE_SEQUENCE_DICTIONARY} from "./modules/picard/create_sequence_dictionary.nf"
+include { BWA_INDEX } from "./modules/bwa/index.nf"
+include { BWA_MEM } from "./modules/bwa/mem.nf"
+include { SAMTOOLS_INDEX } from "./modules/samtools/index.nf"
+include { SAMTOOLS_FAIDX } from "./modules/samtools/faidx.nf"
+include { SAMTOOLS_SORT } from "./modules/samtools/sort.nf"
+include { GATK_HAPLOTYPE_CALLER } from "./modules/gatk/haplotype_caller.nf"
+include { GATK_MARK_DUPLICATES_SPARK } from "./modules/gatk/mark_duplicates_spark.nf"
+include { PICARD_CREATE_SEQUENCE_DICTIONARY } from "./modules/picard/create_sequence_dictionary.nf"
 
 // Workflows
 //include { BASE_WF } from "./workflows/base_wf.nf"
@@ -71,5 +71,7 @@ workflow {
     // SAMTOOLS_SORT()
     // GATK_HAPLOTYPE_CALLER()
     // GATK_MARK_DUPLICATES_SPARK()
+
+    // Step-6
     // BLAST()
 }

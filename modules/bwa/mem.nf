@@ -12,13 +12,12 @@ process BWA_MEM {
     input:
 
     tuple val(genomeName), path(genomeReads)
-    path(indexResultsDir)
-    path(samtoolsFaidxResultsDir)
     path(refFasta)
+    path(fai)
+    tuple path(amb), path(ann), path(bwt), path(pac), path(sa)
 
     output:
-
-    path('*.sam')
+    tuple val(genomeName), path('*.sam')
 
 
     script:

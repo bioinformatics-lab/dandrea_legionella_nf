@@ -14,7 +14,8 @@ process GATK_MARK_DUPLICATES_SPARK {
 
 
     output:
-    tuple file("*bam*"), file("*_metrics.txt")
+    tuple val(samFileName), path("*bam*")
+    path("*_metrics.txt")
 
 
     script:

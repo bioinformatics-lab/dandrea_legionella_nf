@@ -9,11 +9,11 @@ process SAMTOOLS_INDEX {
     publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
-    path(refFasta)
     tuple val(genomeName), path(sortedBam)
+    path(refFasta)
 
     output:
-    path("*.bai")
+    tuple val(genomeName), path("*.bai")
 
     script:
 

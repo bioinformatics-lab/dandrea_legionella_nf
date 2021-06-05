@@ -17,7 +17,7 @@ process GATK_HAPLOTYPE_CALLER {
     tuple val(sortedBamFileName), path(sortedBam)
 
     output:
-    path("*vcf*")
+    tuple val(genomeName), path("*vcf*")
 
     script:
 

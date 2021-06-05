@@ -12,7 +12,7 @@ process SAMTOOLS_SORT {
     tuple val(genomeName), path(bamRead)
 
     output:
-    path("*sort.bam")
+    tuple val(genomeName), path("*sort.bam")
 
     script:
     """

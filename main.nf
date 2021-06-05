@@ -66,11 +66,12 @@ workflow {
     CLASSIFY_TAXONOMY(TRIMMOMATIC.out, params.kraken2_db, params.kraken2_gram_stain)
 
     // Step-5
-    // BWA_MEM()
-    // SAMTOOLS_INDEX()
+    BWA_MEM(TRIMMOMATIC.out, params.reference_fasta, SAMTOOLS_FAIDX.out, BWA_INDEX.out)
+
+    GATK_MARK_DUPLICATES_SPARK(BWA_MEM.out)
+    SAMTOOLS_INDEX(GATK_MARK_DUPLICATES_SPARK.out[0], params.reference_fasta)
     // SAMTOOLS_SORT()
     // GATK_HAPLOTYPE_CALLER()
-    // GATK_MARK_DUPLICATES_SPARK()
 
     // Step-6
     // BLAST()

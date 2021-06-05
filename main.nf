@@ -63,7 +63,7 @@ workflow {
     BWA_INDEX(params.reference_fasta)
     SAMTOOLS_FAIDX(params.reference_fasta)
     PICARD_CREATE_SEQUENCE_DICTIONARY(params.reference_fasta)
-    CLASSIFY_TAXONOMY(TRIMMOMATIC.out, params.kraken2_db)
+    CLASSIFY_TAXONOMY(TRIMMOMATIC.out, params.kraken2_db, params.kraken2_gram_stain)
 
     // Step-5
     // BWA_MEM()

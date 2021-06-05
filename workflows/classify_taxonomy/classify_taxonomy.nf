@@ -4,10 +4,8 @@ nextflow.enable.dsl = 2
 Taken from BACTpipe - https://github.com/ctmrbio/BACTpipe v3.1
 */
 
-params.kraken2_db = "${baseDir}/resources/minikraken2_v2_8GB_201904_UPDATE"
 params.kraken2_confidence = 0.5
 params.kraken2_min_proportion = 1.00
-params.kraken2_gram_stain = "${baseDir}/resources/gram_stain.txt"
 
 params.resultsDir = "${params.outdir}/kraken2"
 params.saveMode = 'copy'
@@ -20,7 +18,8 @@ process CLASSIFY_TAXONOMY {
     
     input:
     tuple val(genomeName), path(reads)
-    path(params.kraken2_db)
+    path(kraken2_db)
+    path(kraken2_gram_stain)
 
     output:
     path "${genomeName}.kreport"

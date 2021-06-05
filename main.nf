@@ -75,3 +75,11 @@ workflow {
     // Step-6
     // BLAST()
 }
+
+
+workflow test {
+    sra_ch = Channel.fromFilePairs(params.reads)
+
+    TRIMMOMATIC(sra_ch)
+    CLASSIFY_TAXONOMY(TRIMMOMATIC.out, params.kraken2_db, params.kraken2_gram_stain)
+}

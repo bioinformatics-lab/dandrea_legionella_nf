@@ -41,7 +41,7 @@ process CLASSIFY_TAXONOMY {
 		classify_kreport.py \
 			--kreport ${genomeName}.kreport \
 			--min-proportion ${params.kraken2_min_proportion} \
-			--gramstains ${projectDir}/resources/gram_stain.txt \
+			--gramstains ${kraken2_gram_stain} \
 			> ${genomeName}.classification.txt
 		"""
 

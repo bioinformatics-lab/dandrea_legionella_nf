@@ -71,4 +71,5 @@ workflow {
     // SAMTOOLS_SORT()
     // GATK_HAPLOTYPE_CALLER()
     // GATK_MARK_DUPLICATES_SPARK()
+    // BLAST()
 }

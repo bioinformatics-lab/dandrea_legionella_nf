@@ -63,9 +63,9 @@ workflow {
     BWA_INDEX(params.reference_fasta)
     SAMTOOLS_FAIDX(params.reference_fasta)
     PICARD_CREATE_SEQUENCE_DICTIONARY(params.reference_fasta)
+    CLASSIFY_TAXONOMY(TRIMMOMATIC.out)
 
     // Step-5
-    // CLASSIFY_TAXONOMY(TRIMMOMATIC.out)
     // BWA_MEM()
     // SAMTOOLS_INDEX()
     // SAMTOOLS_SORT()

@@ -29,7 +29,7 @@ process CLASSIFY_TAXONOMY {
 		"""
 		kraken2 \
 			--quick \
-			--db ${params.kraken2_db} \
+			--db ${kraken2_db} \
 			--threads ${task.cpus} \
 			--confidence ${params.kraken2_confidence} \
 			--output - \

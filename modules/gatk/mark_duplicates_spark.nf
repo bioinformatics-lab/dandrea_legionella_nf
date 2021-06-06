@@ -9,27 +9,27 @@ process GATK_MARK_DUPLICATES_SPARK {
     publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
+    tuple val(genomeName), path(samFile)
     path(refFasta)
-    tuple val(samFileName), path(samFile)
 
 
     output:
-    tuple val(samFileName), path("*bam*")
+    tuple val(genomeName), path("*dedup.sort.bam")
     path("*_metrics.txt")
 
 
     script:
 
     """
-    gatk MarkDuplicatesSpark -I ${samFile} -M ${samFileName}_dedup_metrics.txt -O ${samFileName}.dedup.sort.bam
+    gatk MarkDuplicatesSpark -I ${samFile} -M ${genomeName}_dedup_metrics.txt -O ${genomeName}.dedup.sort.bam
     """
 
     stub:
 
     """
-    echo "gatk MarkDuplicatesSpark -I ${samFile} -M ${samFileName}_dedup_metrics.txt -O ${samFileName}.dedup.sort.bam"
+    echo "gatk MarkDuplicatesSpark -I ${samFile} -M ${genomeName}_dedup_metrics.txt -O ${genomeName}.dedup.sort.bam"
 
-    touch ${samFileName}.dedup.sort.bam
+    touch ${genomeName}.dedup.sort.bam
     """
 
 }

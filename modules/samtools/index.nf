@@ -13,7 +13,7 @@ process SAMTOOLS_INDEX {
     path(refFasta)
 
     output:
-    tuple val(genomeName), path("*.bai")
+    tuple val(genomeName), path("*.bai"), path(sortedBam)
 
     script:
 

@@ -9,12 +9,11 @@ process GATK_HAPLOTYPE_CALLER {
     publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
+    tuple val(genomeName), path(sortedBam)
     path(refFasta)
-    path("samtoolsIndexResultsDir")
-    path("samtoolsFaidxResultsDir")
-    path("bwaIndexResultsDir")
-    path("picardCreateSequenceDictionaryResultsDir")
-    tuple val(sortedBamFileName), path(sortedBam)
+    path(refFasta_fai)
+    tuple path(refFasta_amb), path(refFasta_ann), path(refFasta_bwt), path(refFasta_pac), path(refFasta_sa)
+    path(sequenceDictionary)
 
     output:
     tuple val(genomeName), path("*vcf*")
@@ -22,19 +21,15 @@ process GATK_HAPLOTYPE_CALLER {
     script:
 
     """
-    cp -a samtoolsIndexResultsDir/${sortedBamFileName}* ./
-    cp -a samtoolsFaidxResultsDir/* ./
-    cp -a bwaIndexResultsDir/* ./
-    cp -a picardCreateSequenceDictionaryResultsDir/* ./
 
-    gatk HaplotypeCaller -R ${refFasta} -I ${sortedBam} -O ${sortedBamFileName}.vcf
+    gatk HaplotypeCaller -R ${refFasta} -I ${sortedBam} -O ${genomeName}.vcf
     """
 
     stub:
 
     """
-    echo "gatk HaplotypeCaller -R ${refFasta} -I ${sortedBam} -O ${sortedBamFileName}.vcf"
-    touch ${sortedBamFileName}.vcf
+    echo "gatk HaplotypeCaller -R ${refFasta} -I ${sortedBam} -O ${genomeName}.vcf"
+    touch ${genomeName}.vcf
     """
 
 }

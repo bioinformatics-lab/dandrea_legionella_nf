@@ -68,10 +68,13 @@ workflow {
     // Step-5
     BWA_MEM(TRIMMOMATIC.out, params.reference_fasta, SAMTOOLS_FAIDX.out, BWA_INDEX.out)
 
-    GATK_MARK_DUPLICATES_SPARK(BWA_MEM.out)
-    SAMTOOLS_INDEX(GATK_MARK_DUPLICATES_SPARK.out[0], params.reference_fasta)
-    // SAMTOOLS_SORT()
-    // GATK_HAPLOTYPE_CALLER()
+    // SAMTOOLS_SORT(BWA_MEM.out)
+    // SAMTOOLS_INDEX(SAMTOOLS_SORT.out, params.reference_fasta)
+
+    GATK_MARK_DUPLICATES_SPARK(BWA_MEM.out , params.reference_fasta)
+
+    GATK_HAPLOTYPE_CALLER(GATK_MARK_DUPLICATES_SPARK.out, params.reference_fasta, SAMTOOLS_FAIDX.out, BWA_INDEX.out, PICARD_CREATE_SEQUENCE_DICTIONARY.out
+    )
 
     // Step-6
     // BLAST()

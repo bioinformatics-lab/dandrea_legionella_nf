@@ -9,20 +9,20 @@ process SAMTOOLS_SORT {
     publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
 
     input:
-    tuple val(genomeName), path(bamRead)
+    tuple val(genomeName), path(samRead)
 
     output:
     tuple val(genomeName), path("*sort.bam")
 
     script:
     """
-    samtools sort ${bamRead} >  ${genomeName}.sort.bam
+    samtools sort ${samRead} >  ${genomeName}.sort.bam
     """
 
     stub:
 
     """
-    echo "samtools sort ${bamRead} >  ${genomeName}.sort.bam"
+    echo "samtools sort ${samRead} >  ${genomeName}.sort.bam"
     touch ${genomeName}.sort.bam
     """
 }

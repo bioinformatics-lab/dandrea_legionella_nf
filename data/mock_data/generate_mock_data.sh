@@ -7,4 +7,4 @@ touch data/mock_data/002_R2.fastq.gz
 touch data/mock_data/003_R1.fastq.gz
 touch data/mock_data/003_R2.fastq.gz
 touch data/mock_data/NZ_CP013742.1.fasta
-touch data/mock_data/NZ_CP013742.1_full.gb
+mkdir data/mock_data/mock_kraken_db_dir

@@ -7,14 +7,14 @@ Taken from BACTpipe - https://github.com/ctmrbio/BACTpipe v3.1
 params.kraken2_confidence = 0.5
 params.kraken2_min_proportion = 1.00
 
-params.resultsDir = "${params.outdir}/kraken2"
-params.saveMode = 'copy'
-params.shouldPublish = true
+params.results_dir = "${params.outdir}/kraken2"
+params.save_mode = 'copy'
+params.should_publish = true
 
 
 process CLASSIFY_TAXONOMY {
     tag "${genomeName}"
-    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
+    publishDir params.results_dir, mode: params.save_mode, enabled: params.should_publish
     
     input:
     tuple val(genomeName), path(reads)

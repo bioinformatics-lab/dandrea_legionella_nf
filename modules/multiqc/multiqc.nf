@@ -1,6 +1,6 @@
 nextflow.enable.dsl = 2
 
-params.fastqc_resultsDir = "${params.outdir}/fastqc"
+params.fastqc_results_dir = "${params.outdir}/fastqc"
 params.results_dir = "${params.outdir}/multiqc"
 params.save_mode = 'copy'
 params.should_publish = true

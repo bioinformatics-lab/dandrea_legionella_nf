@@ -1,12 +1,12 @@
 nextflow.enable.dsl = 2
 
-params.resultsDir = "${params.outdir}/samtools/index"
-params.saveMode = 'copy'
-params.shouldPublish = true
+params.results_dir = "${params.outdir}/samtools/index"
+params.save_mode = 'copy'
+params.should_publish = true
 
 process SAMTOOLS_INDEX {
     tag "${genomeName}"
-    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
+    publishDir params.results_dir, mode: params.save_mode, enabled: params.should_publish
 
     input:
     tuple val(genomeName), path(sortedBam)

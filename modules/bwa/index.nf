@@ -1,12 +1,12 @@
 nextflow.enable.dsl = 2
 
-params.resultsDir = "${params.outdir}/bwa/index"
-params.saveMode = 'copy'
-params.shouldPublish = true
+params.results_dir = "${params.outdir}/bwa/index"
+params.save_mode = 'copy'
+params.should_publish = true
 
 process BWA_INDEX {
     tag "${refFasta}"
-    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
+    publishDir params.results_dir, mode: params.save_mode, enabled: params.should_publish
 
 
     input:

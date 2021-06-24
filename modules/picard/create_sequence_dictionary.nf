@@ -1,13 +1,13 @@
 nextflow.enable.dsl = 2
 
-params.resultsDir = "${params.outdir}/picard/create_sequence_dictionary"
-params.saveMode = 'copy'
-params.shouldPublish = true
+params.results_dir = "${params.outdir}/picard/create_sequence_dictionary"
+params.save_mode = 'copy'
+params.should_publish = true
 
 
 process PICARD_CREATE_SEQUENCE_DICTIONARY {
     tag "${refFasta}"
-    publishDir params.resultsDir, mode: params.saveMode, enabled: params.shouldPublish
+    publishDir params.results_dir, mode: params.save_mode, enabled: params.should_publish
 
     input:
     path(refFasta)
